@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OMGAndroid</string>
+
+    <string name="textview">There are some long text values here to experiment with layout width and height. Have Fun!</string>
+    <string name="action_settings">Settings</string>
+    <string name="button">Update the textview</string>
+</resources>
