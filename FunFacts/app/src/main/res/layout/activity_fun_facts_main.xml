@@ -33,7 +33,7 @@
         android:id="@+id/showFactButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-
+android:onClick="onFactButtonPress"
         android:background="#ffffffff"
         android:textColor="#8051b46d" />
 
