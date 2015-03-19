@@ -1,35 +1,53 @@
 package com.example.exile.funfacts;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Random;
 
+import static android.util.Log.*;
+
 
 public class FunFactsMainActivity extends ActionBarActivity {
+    private  FactBook factbook = new FactBook();
+    private RelativeLayout rlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fun_facts_main);
 
+
         final TextView factLabel = (TextView)findViewById(R.id.factTextView);
         Button  showFactButton = (Button)findViewById(R.id.showFactButton);
+        this.rlayout = (RelativeLayout)findViewById(R.id.layout);
 
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fact = "s";
+               // String[] facts =
 
-                Random randomGenerator = new Random();
-                int randomNumber = randomGenerator.nextInt(3);
+                String[] colors = {"blue","red","green","purple","orange","black","pink"};
 
-                factLabel.setText(fact);
+                factLabel.setText(factbook.getFact());
+
+                Random test = new Random();
+                int color = test.nextInt(colors.length);
+                Log.e("COLOR", Integer.toString(color));
+                try {
+                    rlayout.setBackgroundColor(Color.parseColor(colors[color]));
+                } catch (Exception e) {
+
+
+                }
             }
         };
 
