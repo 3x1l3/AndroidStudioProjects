@@ -10,15 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.Random;
-
-import static android.util.Log.*;
+import android.widget.Toast;
 
 
 public class FunFactsMainActivity extends ActionBarActivity {
     private  FactBook factbook = new FactBook();
+    private ColorWheel colorwheel = new ColorWheel();
     private RelativeLayout rlayout;
+    public static final String TAG = FunFactsMainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class FunFactsMainActivity extends ActionBarActivity {
 
 
         final TextView factLabel = (TextView)findViewById(R.id.factTextView);
-        Button  showFactButton = (Button)findViewById(R.id.showFactButton);
+        final Button  showFactButton = (Button)findViewById(R.id.showFactButton);
         this.rlayout = (RelativeLayout)findViewById(R.id.layout);
 
         View.OnClickListener buttonListener = new View.OnClickListener() {
@@ -35,23 +34,18 @@ public class FunFactsMainActivity extends ActionBarActivity {
             public void onClick(View v) {
                // String[] facts =
 
-                String[] colors = {"blue","red","green","purple","orange","black","pink"};
 
                 factLabel.setText(factbook.getFact());
-
-                Random test = new Random();
-                int color = test.nextInt(colors.length);
-                Log.e("COLOR", Integer.toString(color));
-                try {
-                    rlayout.setBackgroundColor(Color.parseColor(colors[color]));
-                } catch (Exception e) {
-
-
-                }
+                String color = colorwheel.getColor();
+                rlayout.setBackgroundColor(Color.parseColor(color));
+                showFactButton.setTextColor(Color.parseColor(color));
             }
         };
 
         showFactButton.setOnClickListener(buttonListener);
+
+        //Toast.makeText(this,"Ya Toast!", Toast.LENGTH_LONG).show();
+        Log.d(TAG,"We are loggin from the oncreate method");
     }
 
 
