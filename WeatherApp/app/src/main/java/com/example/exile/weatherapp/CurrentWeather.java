@@ -1,5 +1,9 @@
 package com.example.exile.weatherapp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * Created by exile on 24/05/15.
  */
@@ -11,6 +15,15 @@ public class CurrentWeather {
     private double mHumiditiy;
     private double mPrecipChance;
     private String mSummary;
+    private String mTimezone;
+
+    public String getTimezone() {
+        return mTimezone;
+    }
+
+    public void setTimezone(String mTimezone) {
+        this.mTimezone = mTimezone;
+    }
 
     public String getIcon() {
         return mIcon;
@@ -59,4 +72,17 @@ public class CurrentWeather {
     public void setSummary(String summary) {
         mSummary = summary;
     }
+
+    public String getFormattedTime() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("H:mm a");
+        formatter.setTimeZone(TimeZone.getTimeZone(getTimezone()));
+        Date date = new Date(getTime() * 1000);
+        String timeString = formatter.format(date);
+
+        return timeString;
+
+    }
+
+
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
@@ -19,12 +20,18 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xml.sax.XMLReader;
+
 import java.io.IOException;
 
 
 public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private CurrentWeather mCurrentWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,24 +62,54 @@ public class MainActivity extends Activity {
                 public void onResponse(Response response) throws IOException {
 
                     try {
-                        Log.v(TAG, response.body().string());
+                        String JSONData = response.body().string();
+                        Log.v(TAG, JSONData);
                         if (response.isSuccessful()) {
-
+                            getCurrentDetails(JSONData);
                         } else {
                             alertUserAboutError();
                         }
 
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Exception caught: ", e);
                     }
                 }
-            });
+
+        });
         } else {
 
             Toast.makeText(this,getString(R.string.network_unavailable_toast_message), Toast.LENGTH_LONG).show();
 
         }
 
+
+
+        TextView myTextView=(TextView)findViewById(R.id.textView);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/weathericons-regular-webfont.ttf");
+        myTextView.setTypeface(typeFace);
+        myTextView.setText(WeatherIcons.day_cloudy_windy);
+    }
+
+    private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+        String timezone = forecast.getString("timezone");
+        Log.i(TAG,"From JSON:" + timezone);
+        JSONObject currently = new JSONObject(forecast.getString("currently"));
+
+        CurrentWeather currentWeather = new CurrentWeather();
+        currentWeather.setHumiditiy(currently.getDouble("humidity"));
+        currentWeather.setTime(currently.getLong("time"));
+        currentWeather.setTemperature(currently.getDouble("temperature"));
+        currentWeather.setIcon(currently.getString("icon"));
+        currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
+        currentWeather.setSummary(currently.getString("summary"));
+        currentWeather.setTimezone(timezone);
+
+        Log.d(TAG, currentWeather.getFormattedTime());
+
+        return currentWeather;
     }
 
     private boolean isNetworkAvailable() {
