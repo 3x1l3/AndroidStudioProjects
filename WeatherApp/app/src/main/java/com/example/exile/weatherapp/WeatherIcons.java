@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 public class WeatherIcons {
 
 
-    public static final String day_cloudy_gusts =             "\uuf000";
+    public static final String day_cloudy_gusts =             "\uf000";
     public static final String day_cloudy_windy =             "\uf001";
     public static final String day_cloudy =                   "\uf002";
     public static final String day_fog =                      "\uf003";

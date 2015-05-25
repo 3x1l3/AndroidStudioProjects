@@ -33,6 +33,33 @@ public class CurrentWeather {
         mIcon = icon;
     }
 
+    /*
+    clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night. (Developers should ensure that a sensible default is defined, as additional values, such as hail, thunderstorm, or tornado, may be defined in the future.)
+     */
+    public String getIconFont() {
+       String iconFont = WeatherIcons.day_sunny;
+
+       switch(getIcon()) {
+            case "clear-day":
+                iconFont = WeatherIcons.day_sunny;
+                break;
+            case "clear-night":
+                iconFont = WeatherIcons.night_clear;
+                break;
+            case "rain": iconFont = WeatherIcons.rain; break;
+            case "snow": iconFont = WeatherIcons.snow; break;
+            case "sleet": iconFont = WeatherIcons.sleet; break;
+            case "wind": iconFont = WeatherIcons.windy; break;
+            case "fog": iconFont = WeatherIcons.fog; break;
+           case "cloudy": iconFont = WeatherIcons.cloudy; break;
+           case "partly-cloudy-night": iconFont = WeatherIcons.night_partly_cloudy; break;
+           case "partly-cloudy-day": iconFont = WeatherIcons.day_cloudy; break;
+        }
+
+
+       return iconFont;
+    }
+
     public long getTime() {
         return mTime;
     }

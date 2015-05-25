@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 
 
 
-        TextView myTextView=(TextView)findViewById(R.id.textView);
+        TextView myTextView=(TextView)findViewById(R.id.iconFont);
         Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/weathericons-regular-webfont.ttf");
         myTextView.setTypeface(typeFace);
         myTextView.setText(WeatherIcons.day_cloudy_windy);
